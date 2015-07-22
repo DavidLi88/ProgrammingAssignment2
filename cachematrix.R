@@ -32,15 +32,15 @@ cacheSolve <- function(x, ...) {
 }
 
 ## Sample run-time example included results
-## > source("cachematrix.R")    load R program
-## > a <- makeCacheMatrix()     create functions
-## > a$set(matrix(1:4, 2, 2))   create matrix 
-## > cacheSolve(a)              1st run create and return inverted matrix
+## > source("cachematrix.R")      load R program
+## > fn1 <- makeCacheMatrix()     create functions
+## > fn1$set(matrix(1:4, 2, 2))   create matrix 
+## > cacheSolve(fn1)              1st run create and return inverted matrix
 ## [,1] [,2]
 ## [1,]   -2  1.5
 ## [2,]    1 -0.5
 ##
-## > cacheSolve(a)              2nd and subsequent runs returns inverted matrix from cache                        
+## > cacheSolve(fn1)              2nd and subsequent runs returns inverted matrix from cache                        
 ## getting cached data          
 ## [,1] [,2]
 ## [1,]   -2  1.5
