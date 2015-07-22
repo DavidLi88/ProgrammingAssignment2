@@ -1,7 +1,23 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Sample run-time example included results
+## > source("cachematrix.R")    load R program
+## > a <- makeCacheMatrix()     create functions
+## > a$set(matrix(1:4, 2, 2))   create matrix 
+## > cacheSolve(a)              1st run create and return inverted matrix
+## [,1] [,2]
+## [1,]   -2  1.5
+## [2,]    1 -0.5
+##
+## > cacheSolve(a)              2nd and subsequent runs returns inverted matrix from cache                        
+## getting cached data          
+## [,1] [,2]
+## [1,]   -2  1.5
+## [2,]    1 -0.5
 
-## Write a short comment describing this function
+
+## The following functions to create a square invertible matrix,
+## and make the inverse of the matrix available in the cache.
+
+## makeCacheMatrix creates and returns a list of functions used by cacheSolve to get or set the inverted matrix in cache
 makeCacheMatrix <- function(x = matrix()) {
   x_inv <- NULL;
   set <- function(y) {
@@ -16,8 +32,8 @@ makeCacheMatrix <- function(x = matrix()) {
        getInverse = getInverse)
 }
 
-
-## Write a short comment describing this function
+## cacheSolve is to inverse the matrix created in makeCacheMatrix and store it in cache 
+## if the inverted matrix does not exist in cache, otherwise will get it from cache and return it.
 cacheSolve <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
   x_inv <- x$getInverse()
