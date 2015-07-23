@@ -1,16 +1,23 @@
 ## The following functions to create a square invertible matrix,
 ## and make the inverse of the matrix available in the cache.
 
-## makeCacheMatrix creates and returns a list of functions used by cacheSolve to get or set the inverted matrix in cache
+## makeCacheMatrix creates and returns a list of functions used by cacheSolve to get or set the inverte matrix in cache
 makeCacheMatrix <- function(x = matrix()) {
+  ## clear inverse matrix in cache
   x_inv <- NULL;
-  set <- function(y) {
-    x <<- y
+  
+  set <- function(new_x) {
+    x <<- new_x
     x_inv <<- NULL
   }
   get <- function() x
+  
+  ## funtion for sotring inverse matrix in cache
   setInverse <- function(new_x_inv) x_inv <<- new_x_inv;
+  
+  ## function for getting inverse matrix from cache
   getInverse <- function() x_inv;
+  
   list(set = set, get = get,
        setInverse = setInverse,
        getInverse = getInverse)
@@ -19,16 +26,19 @@ makeCacheMatrix <- function(x = matrix()) {
 ## cacheSolve is to inverse the matrix created in makeCacheMatrix and store it in cache 
 ## if the inverted matrix does not exist in cache, otherwise will get it from cache and return it.
 cacheSolve <- function(x, ...) {
-  ## Return a matrix that is the inverse of 'x'
-  x_inv <- x$getInverse()
+  ## Try to get a inverse matrix from cache, if it exists then return it.
+  x_inv <- x$getInverse();
   if(!is.null(x_inv)) {
-    message("getting cached inversed matrix")
+    message("getting cached inverse matrix");
     return(x_inv)
   }
-  data <- x$get()
-  new_x_inv <- solve(data, ...)
-  x$setInverse(new_x_inv)
-  new_x_inv
+  
+  ## No inverse matrix in cache, then get the matrix and reverse it.
+  data <- x$get();
+  new_x_inv <- solve(data, ...);
+  ## store inverse matrix in cache and return it.
+  x$setInverse(new_x_inv);
+  return(new_x_inv);
 }
 
 ## Sample run-time example included results
